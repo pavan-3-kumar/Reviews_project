@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<div style="position: relative;top: 1px;right: 5px;">
+    <ul>
+        <% if (locals.user){ %>
+        <li>
+            <a href="/users/profile">
+                <i class="fa-solid fa-user fa-lg"></i> 
+                <span style="display: inline-flex;"><%=user.name%></span>
+                <!-- <%= user.name%> -->
+            </a>
+        </li>
+        <br>
+        <li>
+            <a href="/users/signout">
+                <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>    
+                <span style="display: inline-flex;">SIGN-OUT</span>
+                <!-- SIGN-OUT -->
+            </a>
+        </li>
+            <%} else {%>
+            <li>
+                <a href="/users/signin">
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>    
+                <span style="display: inline-flex;">SIGN-IN</span>
+                </a>
+            </li>
+            <br>
+            <li>
+                <a href="/users/signup">
+                    <i class="fa-solid fa-user-plus" style="color: #063689;"></i>
+                    <span style="display: inline-flex;">SIGN-UP</span>
+                </a>
+            </li>
+            
+             <% }%>
+    </ul>
+</div>
+

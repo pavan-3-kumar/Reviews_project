@@ -1,0 +1,20 @@
+<%- include('_header')%>
+
+<div style="text-align: center;">
+<h1>SIGN-UP</h1>
+<form action="/users/create" method="post">
+    <input name="name" type="text" placeholder="name" required>
+    <br>
+   <br>
+    <input name="email" type="email" placeholder="email" required>
+    <br>
+    <br>
+    <input name="password" type="password" placeholder="password" required>
+    <br>
+    <br>
+    <input name="conf_password" type="password" placeholder="conf_password" required>
+    <br>
+    <br>
+    <input type="submit" value="SIGN-UP">
+</form>
+</div>

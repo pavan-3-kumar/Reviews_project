@@ -1,0 +1,93 @@
+<%- include('_header')%>
+
+<html>
+    <head>
+<title>
+   <%= title%>
+</title>
+
+<link rel="stylesheet" href="/home.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    </head>
+    <body>
+    <div class="entire">
+        <h1 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;color: rgb(84, 120, 4);">TODO_LIST </h1>
+        <div class="task-list">
+            <ul class="task" id="task_list">
+                <% for(i of tasks) { %>
+                <li>
+                    <div class="list">
+                    <a href="/check/?id=<%= i._id %>"  id="a1" name="<%= i._id %>" >
+                        <% if(i.did_task) {%>
+                        <i class="fa-solid fa-square-check fa-lg" style="color: #04c311;"></i>
+                        <% } else {%>
+                        <i class="fa-solid fa-square-xmark fa-lg" style="color: #b50303;"></i>
+                        <% } %>
+                    </a>
+                    
+                    <% if(i.did_task) {%>
+                    <p  style=" font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color: #04c311;"><%= i.task%>
+                    
+                      <br><%= i.user%>
+                    </p>
+                    <% } else {%>
+                        <p  style=" font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color: #b50303;"><%= i.task%>
+                            <br><%= i.user%>
+                        </p>
+                    <% } %>
+                    
+                <!-- <div class="delete-task"> -->
+                    <!--    ?task = <%= i%>  -->
+                    <!-- here we are passing the id of the particular task as query 
+                    inorder to delete the particular task in the database by id-->
+                     <a href="/delete-task/?id=<%= i._id %>" id="a3" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
+                    </div>
+                </li>
+                <br>
+                <%}%>
+            </ul>
+        </div>
+   <form id = "todo-form" action="/tasks/create"   method="POST">
+    <input name="task"  type="text" id="task_text" placeholder="add-task">
+    <!-- <input name="number" type="number" placeholder="ph.no"> -->
+    <br>
+    <br>
+    <button type="submit">submit</button>
+     </form>
+  </div>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <script>
+
+        $('#todo-form').submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                type:'post',
+                url:'/tasks/create',
+                data:$('#todo-form').serialize(),
+                success:function(task){
+                   console.log(task);
+                //     console.log(task.data._id);
+                    var ul = $('#task_list');
+                    var x = $(`
+                    <li>
+                    <div class="list">
+                    <a href="/check/?id=${task.data._id }"  id="a1" name="${task.data._id }" >
+                        <i class="fa-solid fa-square-xmark fa-lg" style="color: #b50303;"></i>
+                    </a>
+                        <p style=" font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"> ${task.data.task}
+                            <br><%= i.user%>    
+                        </p>
+                     <a href="/delete-task/?id= ${task.data._id}" id="a1" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
+                    </div>
+                </li>                  
+                     `);
+                    ul.append(x);
+                    var text = $('#task_text');
+                    text.val('');    
+                }
+            })
+        });
+    </script>
+</html>

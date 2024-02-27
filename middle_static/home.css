@@ -1,0 +1,72 @@
+body{
+    color:rgba(184, 6, 6, 0.723);
+   /* text-align: center; */
+
+    
+}
+.task-list{
+    /* border: 2px black solid; */
+    margin: auto;
+    width: 15%;
+    padding: 20px;
+    margin-bottom: 10px;
+    /* background-color: rgb(235, 226, 92); */
+}
+.task{
+    list-style-type: none;
+  padding: 0;
+  /* border: 1px solid #070707;  */
+}
+.task li{
+    border-bottom: 1px solid #ccc;
+      /* padding: 2px; */
+      display: flex;
+      justify-content: space-between;
+}
+.list{
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+     
+    justify-content: space-between;
+    /* border: 1px solid black;  */
+    width: 100%;  
+}
+.list #a1,#a3{
+    /* margin-right: 20px; */
+    /* float: left; */
+    padding: 10px 20px;
+      /* background-color: #3498db; */
+      /* color: #fff; */
+      border: none;
+      /* border-radius: 5px; */
+      cursor: pointer;
+}
+
+.entire{
+    text-align: center;   
+}
+
+/* .list p
+{
+    margin-left: 5px;
+    margin-right: 40px;
+} */
+.list p{
+    /* float:inline-start; */
+    /* color: green; */
+    text-size-adjust:none;
+    
+    
+}
+
+/* .list #aaa{
+    display: list-item;
+} */
+.right{
+    float: right;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(163, 85, 164);
+  color: rgb(58, 145, 231);
+}
