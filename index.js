@@ -85,28 +85,33 @@ app.use('/',require('./routes'));
 // // console.log(tasks);
 //     return res.render('home',{'title':'kumar' , 'tasks':tasks});
 // }); 
-app.get('/check',async function(req , res){
+
+
+// app.get('/check',async function(req , res){
     
-    // const ob = req.body;
-    // const pa =Object.keys(req.body);
-    // for(let a in  pa)
+//     // const ob = req.body;
+//     // const pa =Object.keys(req.body);
+//     // for(let a in  pa)
     
-    const id = req.query.id;
-    const pa = await Task.findById(id);
-    if(pa.did_task)
-          await Task.updateOne({_id:id},{$set:{did_task:false}});
-        else 
-        await Task.updateOne({_id:id},{$set:{did_task:true}});
-//      if(Task.findById(id).did_task === true){
-//    await Task.findByIdAndUpdate(id,{did_task:false}); 
-// console.log("yes");
-// }
-// else {
-// await Task.findByIdAndUpdate(id,{did_task:true});
-// console.log("no");
-// }
-     res.redirect('back');
-});
+//     const id = req.query.id;
+//     const pa = await Task.findById(id);
+//     if(pa.did_task)
+//           await Task.updateOne({_id:id},{$set:{did_task:false}});
+//         else 
+//         await Task.updateOne({_id:id},{$set:{did_task:true}});
+// //      if(Task.findById(id).did_task === true){
+// //    await Task.findByIdAndUpdate(id,{did_task:false}); 
+// // console.log("yes");
+// // }
+// // else {
+// // await Task.findByIdAndUpdate(id,{did_task:true});
+// // console.log("no");
+// // }
+//      res.redirect('back');
+// });
+
+
+
 // app.post('/practice' , async function(req, res){
 //     // console.log(req.body.task);
 //     //  name : req.body.name ,
@@ -125,26 +130,27 @@ app.get('/check',async function(req , res){
 // });
 
 // for deleting the task by getting the query form <a> tag
-app.get('/delete-task',async function(req,res)
-{
-    // here we can use both params and query but using the params
-    // we can get only the data realted to the parameters that we mentioned
-    // like app.get('/delet-task/task') and in home.ejs file in <a> tag href="/delete-task/<%= i%>"
-    // but using query we can have all the elements that we have specified in the href like using phone number and name
-    // ?phone=<%= phone%>& name =<%= name%>
 
-    // console.log(req.query);
-    const id = (req.query.id);
-    // console.log(id);
-    await Task.deleteOne({ _id : id});
-    // let index_to_delete  = tasks.findIndex(ta  => ta == task );
-    // if(index_to_delete != -1)
-    // {
-    //     tasks.splice(index_to_delete, 1);
-    // }
-    return res.redirect('back');
+// app.get('/delete-task',async function(req,res)
+// {
+//     // here we can use both params and query but using the params
+//     // we can get only the data realted to the parameters that we mentioned
+//     // like app.get('/delet-task/task') and in home.ejs file in <a> tag href="/delete-task/<%= i%>"
+//     // but using query we can have all the elements that we have specified in the href like using phone number and name
+//     // ?phone=<%= phone%>& name =<%= name%>
+
+//     // console.log(req.query);
+//     const id = (req.query.id);
+//     // console.log(id);
+//     await Task.deleteOne({ _id : id});
+//     // let index_to_delete  = tasks.findIndex(ta  => ta == task );
+//     // if(index_to_delete != -1)
+//     // {
+//     //     tasks.splice(index_to_delete, 1);
+//     // }
+//     return res.redirect('back');
     
-});
+// });
 
 app.listen(port , function(err){
  if(err){console.log("this is an error in server");return;}

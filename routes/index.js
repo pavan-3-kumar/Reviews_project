@@ -12,6 +12,6 @@ router.use('/users',require('./users'));
 // using app.use
 
 router.use('/tasks', require('./tasks'));
-
+router.use('/comments',require('./comments'));
 
 module.exports = router;

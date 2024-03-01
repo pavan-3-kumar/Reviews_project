@@ -11,52 +11,87 @@
     </head>
     <body>
     <div class="entire">
+        <!-- <script>console.log(locals.user);</script> -->
         <h1 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;color: rgb(84, 120, 4);">TODO_LIST </h1>
+        <% if(locals.user){ %>
+        <form id = "todo-form" action="/tasks/create"   method="POST">
+            <input name="task"  type="text" id="task_text" placeholder="Add-Post" required>
+            <br>
+            <br>
+            <button type="submit">Post</button>
+             </form>
+             <% } %>
         <div class="task-list">
             <ul class="task" id="task_list">
                 <% for(i of tasks) { %>
                 <li>
                     <div class="list">
-                    <a href="/check/?id=<%= i._id %>"  id="a1" name="<%= i._id %>" >
+                    <!-- <a href="/check/?id=<%= i._id %>"  id="a1" name="<%= i._id %>" >
                         <% if(i.did_task) {%>
                         <i class="fa-solid fa-square-check fa-lg" style="color: #04c311;"></i>
                         <% } else {%>
                         <i class="fa-solid fa-square-xmark fa-lg" style="color: #b50303;"></i>
                         <% } %>
-                    </a>
+                    </a> -->
                     
-                    <% if(i.did_task) {%>
+                    <!-- <% if(i.did_task) {%>
                     <p  style=" font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color: #04c311;"><%= i.task%>
                     
-                      <br><%= i.user%>
+                      <br><%= i.user.name%>
                     </p>
                     <% } else {%>
                         <p  style=" font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;color: #b50303;"><%= i.task%>
-                            <br><%= i.user%>
+                            <br><%= i.user.name%>
                         </p>
-                    <% } %>
-                    
+                    <% } %> -->
+
+                    <p><%= i.task%><br><%= i.user.name%></p>
                 <!-- <div class="delete-task"> -->
                     <!--    ?task = <%= i%>  -->
                     <!-- here we are passing the id of the particular task as query 
                     inorder to delete the particular task in the database by id-->
-                     <a href="/delete-task/?id=<%= i._id %>" id="a3" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
+                    <% if( (locals.user) && (locals.user.id == i.user.id) ){ %> 
+                    <a href="/tasks/delete/?id=<%= i._id %>" id="a3" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
+                     <!-- <a href="#" onclick="location.href='@Url.Action("adga")'"><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a> -->
+                    <% } %>
                     </div>
+                    
+                    
                 </li>
-                <br>
+                <div class="post-comments">
+                    <% if(locals.user){%>
+                           <form action="/comments/create_comment" method="post">
+                            <input type="text" name ="commentdata" placeholder="type a comment here..." required>
+                           <input type="hidden" name="postid" value="<%= i._id%>">
+                           <input type="submit" value="Add comment">
+                           </form>
+                     <% }%>
+                   </div>
+                <div class="post-comments-list">
+                     <ul id="post-comments-<%= i._id %>">
+                        <% for(comment of i.comments){ %>
+                             <p style="color: black;">
+                                <%= comment.content %>
+                                <% if( (locals.user) && (locals.user.id == comment.user.id) ){ %> 
+                                    <a href="/comments/delete_comment/?id=<%= comment._id %>" id="a3" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
+                                      <% } %>
+                                      <br>
+                                <small>
+                                   By--  <%= comment.user.name %>
+                                </small>
+                             </p>
+                        <% }%>
+                     </ul>
+                </div>
+                    
                 <%}%>
             </ul>
         </div>
-   <form id = "todo-form" action="/tasks/create"   method="POST">
-    <input name="task"  type="text" id="task_text" placeholder="add-task">
-    <!-- <input name="number" type="number" placeholder="ph.no"> -->
-    <br>
-    <br>
-    <button type="submit">submit</button>
-     </form>
+   
   </div>
     </body>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!-- to decrease page refresh -->
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <script>
 
@@ -67,7 +102,7 @@
                 url:'/tasks/create',
                 data:$('#todo-form').serialize(),
                 success:function(task){
-                   console.log(task);
+                //    console.log(task);
                 //     console.log(task.data._id);
                     var ul = $('#task_list');
                     var x = $(`
@@ -77,17 +112,26 @@
                         <i class="fa-solid fa-square-xmark fa-lg" style="color: #b50303;"></i>
                     </a>
                         <p style=" font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"> ${task.data.task}
-                            <br><%= i.user%>    
+                            <br><%= i.user.name%>    
                         </p>
-                     <a href="/delete-task/?id= ${task.data._id}" id="a1" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
+                     <a href="/task/delete/?id= ${task.data._id}" id="a1" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
+                    </div>
+                    <div class="post-comments">
+                            <form action="/comments/create_comment" method="post">
+                            <input type="text" name ="commentdata" placeholder="type a comment here...">
+                            <input type="hidden" name="postid" value="${task.data._id}">
+                            <input type="submit" value="Add comment">
+                            </form>
                     </div>
                 </li>                  
                      `);
-                    ul.append(x);
+                    // ul.append(x);
+                    ul.prepend(x);
                     var text = $('#task_text');
                     text.val('');    
                 }
             })
         });
-    </script>
+        
+    </script> -->
 </html>
