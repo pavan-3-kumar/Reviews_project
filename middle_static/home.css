@@ -1,72 +1,64 @@
 body{
-    color:rgba(184, 6, 6, 0.723);
-   /* text-align: center; */
-
-    
+    color:rgba(8, 8, 8, 0.942);
+   /* text-align: center; */   
 }
-.task-list{
-    /* border: 2px black solid; */
-    margin: auto;
-    width: 15%;
-    padding: 20px;
-    margin-bottom: 10px;
-    /* background-color: rgb(235, 226, 92); */
-}
-.task{
-    list-style-type: none;
-  padding: 0;
-  /* border: 1px solid #070707;  */
-}
-.task li{
-    border-bottom: 1px solid #ccc;
-      /* padding: 2px; */
-      display: flex;
-      justify-content: space-between;
-}
-.list{
+#home-container{
     display: flex;
-    flex-direction: row;
+
+    #first{
+        width: 70%;
+        padding: 10px;
+        /* border-right: 4px solid blue; */
+    }
+    #second{
+        width: 30%;
+        padding: 10px;
+        border-left:1px solid rgb(17, 1, 1);
+        height: auto;
+    }
+}
+
+#list{
+    /* padding: 10px; */
+    /* border: 2px solid black; */
+    display: flex;
+    width: 20%;
+    #a2{
+        width: 80%;
+        padding: 10px;
+    }
+    #a3{
+       width: 20%;
+       padding: 10px;
+    }
     align-items: center; 
-     
-    justify-content: space-between;
-    /* border: 1px solid black;  */
-    width: 500%;  
-}
-.list #a1,#a3{
-    /* margin-right: 20px; */
-    /* float: left; */
-    padding: 10px 20px;
-      /* background-color: #3498db; */
-      /* color: #fff; */
-      border: none;
-      /* border-radius: 5px; */
-      cursor: pointer;
-}
-
-.entire{
-    text-align: center;   
-}
-
-/* .list p
-{
-    margin-left: 5px;
-    margin-right: 40px;
-} */
-.list p{
-    /* float:inline-start; */
-    /* color: green; */
-    text-size-adjust:none;
-    
     
 }
 
-/* .list #aaa{
-    display: list-item;
-} */
-.right{
-    float: right;
-    border-radius: 10px;
-    border: none;
-    background-color: rgb(163, 85, 164);
-  color: rgb(58, 145, 231);
+#todo-form{
+    text-align: center;
+}
+
+#post-comments-list{
+    display: flex;
+    /* border: 2px solid black; */
+    width: 30%;
+    height: auto;
+    height: initial;
+    height: fit-content;
+    align-items: center;
+}
+#post-container{
+    display: flex;
+    /* border: 1px solid black; */
+    #post-comments{
+        width: 40%;
+        padding: 10px;
+    }
+    #post-comments-list{
+       width: 60%;
+       padding: 10px;
+    }
+    
+    
 }

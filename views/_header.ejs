@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-<div style="position: relative;top: 1px;right: 5px;">
+<div style="height: 18%;">
+<div style="position: relative;top: 1px;right: 5px;width: 25%;">
     <ul>
         <% if (locals.user){ %>
         <li>
-            <a href="/users/profile">
+            <a href="/users/profile/?id=<%= user.id%>">
                 <i class="fa-solid fa-user fa-lg"></i> 
                 <span style="display: inline-flex;"><%= user.name%></span>
                 <!-- <%= user.name%> -->
@@ -37,3 +37,5 @@
     </ul>
 </div>
 
+<h1 style="text-align: center; margin-top: -4%;">SOCIAL_CONNECT</h1>
+</div>

@@ -6,7 +6,7 @@ const users_controller = require('../controllers/user_controller');
 // page we need to check whether the user is signed in or not so we use this function
 // from the passport-local-strategy
 router.get('/profile',passport.checkAuthentication,  users_controller.profile);
-
+router.post('/update',passport.checkAuthentication,users_controller.update);
 router.get('/signup' , users_controller.signup);
 router.get('/signin' , users_controller.signin);
 // get signup data

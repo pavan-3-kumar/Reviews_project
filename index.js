@@ -13,6 +13,9 @@ const passportLocal = require('./assets/passport-local-strategy');
 const MongoStore = require('connect-mongo'); // to store session cookie in mongodb permenantly until sign out
 const Task = require('./models/task_data');
 const app = express();
+const flash = require('connect-flash');
+const customMware= require('./assets/middleware');
+
 
 app.set('view engine' , 'ejs');
 app.set('views' , path.join(__dirname , 'views'));
@@ -22,7 +25,7 @@ app.use(express.static('middle_static'));// to use static files under middle_sta
 
 
 app.use(session({
-    name: 'TODO_LIST',
+    name: 'SOCIAL_CONNECT',
     // secret key - when an encryption happens there is a key to
     // encrypt and decrypt so we the key that we mentioned here
     secret : 'secretcode',
@@ -58,8 +61,8 @@ let count = 0 ;
 //     count++;
 //     next();
 // });
-
-
+app.use(flash());
+app.use(customMware.setFlash);
 app.use('/',require('./routes')); 
 
 // app.get('/' , async function(req , res){

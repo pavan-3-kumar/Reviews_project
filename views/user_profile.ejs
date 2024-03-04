@@ -1,3 +1,14 @@
 <%-include('_header')%>
 <title>user_profile page</title>
-<h1>this is a <%= user.name %> page</h1>
+
+<% if(locals.user.id == profile_user.id) {%>
+    <!-- if user matches show update form -->
+   <form action="/users/update/?id=<%= profile_user.id %>" method="post">
+       <input type="text" name="name" placeholder="enter name"  required>
+       <input type="email" name="email" placeholder="enter email"  required>
+        <input type="submit" value="update">
+    </form>
+   <% } else{ %>
+    <h1> <%= profile_user.name %></h1>
+    <h2> <%= profile_user.email %></h2>
+   <% } %>

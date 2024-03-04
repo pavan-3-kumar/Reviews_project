@@ -1,5 +1,5 @@
 const Task = require('../models/task_data');
-
+const User = require('../models/user');
 module.exports.home = async function(req , res){
    
    // in browser we named a cookie as user_id and kept value as 33 
@@ -42,7 +42,9 @@ module.exports.home = async function(req , res){
       }
    })
    .exec();
-   return res.render('home',{title : "HOME" ,tasks : total_tasks});     
+   const users = await User.find({});
+// console.log(users);
+   return res.render('home',{title : "HOME" ,tasks : total_tasks , all_users:users});     
 
    
    

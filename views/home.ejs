@@ -8,24 +8,31 @@
 
 <link rel="stylesheet" href="/home.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    </head>
+<!-- for the animated notifications -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+</head>
     <body>
-    <div class="entire">
+        
+    <div id="home-container">
+        <section id="first">
         <!-- <script>console.log(locals.user);</script> -->
-        <h1 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;color: rgb(84, 120, 4);">TODO_LIST </h1>
+        <!-- <h1 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;color: rgb(84, 120, 4);">Connect </h1> -->
+        
+            
         <% if(locals.user){ %>
         <form id = "todo-form" action="/tasks/create"   method="POST">
             <input name="task"  type="text" id="task_text" placeholder="Add-Post" required>
-            <br>
-            <br>
+            <!-- <br>
+            <br> -->
             <button type="submit">Post</button>
              </form>
-             <% } %>
-        <div class="task-list">
+             <% } %> 
+             
             <ul class="task" id="task_list">
                 <% for(i of tasks) { %>
-                <li>
-                    <div class="list">
+                <li id="list">
+                    
                     <!-- <a href="/check/?id=<%= i._id %>"  id="a1" name="<%= i._id %>" >
                         <% if(i.did_task) {%>
                         <i class="fa-solid fa-square-check fa-lg" style="color: #04c311;"></i>
@@ -45,7 +52,7 @@
                         </p>
                     <% } %> -->
 
-                    <p><%= i.task%><br><%= i.user.name%></p>
+                    <p id="a2"><%= i.task%><br><%= i.user.name%></p>
                 <!-- <div class="delete-task"> -->
                     <!--    ?task = <%= i%>  -->
                     <!-- here we are passing the id of the particular task as query 
@@ -54,11 +61,11 @@
                     <a href="/tasks/delete/?id=<%= i._id %>" id="a3" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
                      <!-- <a href="#" onclick="location.href='@Url.Action("adga")'"><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a> -->
                     <% } %>
-                    </div>
-                    
                     
                 </li>
-                <div class="post-comments">
+                <div id="post-container">
+                    
+                <section class="post-comments">
                     <% if(locals.user){%>
                            <form action="/comments/create_comment" method="post">
                             <input type="text" name ="commentdata" placeholder="type a comment here..." required>
@@ -66,29 +73,56 @@
                            <input type="submit" value="Add comment">
                            </form>
                      <% }%>
-                   </div>
-                <div class="post-comments-list">
-                     <ul id="post-comments-<%= i._id %>">
+                </section>
+                  <% if(i.comments.length > 0)  {%>
+                <section id="post-comments-list">
+
+                     <ul id="post-comments-<%= i._id %>" type="disc">
                         <% for(comment of i.comments){ %>
-                             <p style="color: black;">
+                             <li style="color: black;" id="com-para">
                                 <%= comment.content %>
                                 <% if( (locals.user) && (locals.user.id == comment.user.id) ){ %> 
-                                    <a href="/comments/delete_comment/?id=<%= comment._id %>" id="a3" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
+                                    <a href="/comments/delete_comment/?id=<%= comment._id %>" id="com-a3" style="padding:25px" ><i class="fa-solid fa-trash fa-xs" style="color: #080808;"></i></a>
                                       <% } %>
                                       <br>
                                 <small>
                                    By--  <%= comment.user.name %>
                                 </small>
-                             </p>
+                            </li>
+                            <br>
                         <% }%>
                      </ul>
+                </section>
+                    <%}%>
                 </div>
-                    
                 <%}%>
             </ul>
-        </div>
+       
+    </section>
+    <section id="second">
+            <h2 style="text-align: center;">Friends</h2>
+            <% for(friend of all_users) { %>
+               <p>
+                <a href="/users/profile/?id=<%= friend.id %>"><%= friend.name %></a>
+               </p>
+            
+            <% } %>
+    </section>
    
   </div>
+            <script>
+                console.log("hello");
+                if(flash.success && flash.success.length > 0 )
+                {
+                    new Noty({
+                        theme :'relax',
+                        text: 'Some notification text',
+                        type : 'success',
+                        layout : 'topRight',
+                        timeout : 1500
+                        }).show();
+                }
+            </script>
     </body>
     <!-- to decrease page refresh -->
     <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -134,4 +168,5 @@
         });
         
     </script> -->
+    
 </html>

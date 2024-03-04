@@ -19,7 +19,23 @@ module.exports.profile= async function(req , res){
     //   else 
     //  return res.redirect('/users/signin');
     // res.end('<h1>this handels multiple user</h1>');
-  return   res.render('user_profile');
+    const id = req.query.id;
+    // console.log(id);    
+    const user =await  User.findById(id);
+    // console.log(user);
+  return   res.render('user_profile' , {profile_user : user});
+}
+
+module.exports.update =async function(req , res){
+   
+    const idd = req.query.id;
+    if(req.user.id == idd){
+        // console.log(req.body.name);
+    await User.updateOne({_id:idd},{$set:{name : req.body.name , email:  req.body.email }});
+    return res.redirect('/');
+   }else{
+        return res.status(404).send('unauthorized');
+    }
 }
 
 // renders the sign up page
@@ -89,6 +105,7 @@ module.exports.create=async function(req , res)
 
 module.exports.createSession = async function(req , res)
 {
+    req.flash('success' ,'Logged Successfully')
     return res.redirect('/');
 }
 
@@ -97,6 +114,8 @@ module.exports.destroysession = async function(req , res)
     // this is function in a passport
     req.logout(function(err) {
         if (err) { return next(err); }
+        
     return res.redirect('/');
  });
+ req.flash('success' ,'Logged Out');
 }
