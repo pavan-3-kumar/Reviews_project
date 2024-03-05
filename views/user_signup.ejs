@@ -1,7 +1,16 @@
 <%- include('_header')%>
 
+
+<head>
+    <title> <%= title %></title>
+    <!-- for the animated notifications -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+
+</head>
 <div style="text-align: center;">
 <h1>SIGN-UP</h1>
+
 <form action="/users/create" method="post">
     <input name="name" type="text" placeholder="name" required>
     <br>
@@ -18,3 +27,29 @@
     <input type="submit" value="SIGN-UP">
 </form>
 </div>
+<script>
+                
+    // console.log("hello");
+    // after keeping <%%> this only we are getting notifications dont no why
+    <% if(flash.success && flash.success.length > 0 )
+    { %>
+        new Noty({
+            theme :'relax',
+            text: '<%= flash.success %>!!!',
+            type : 'success',
+            layout : 'topRight',
+            timeout : 1500
+            }).show();
+   <% } %>
+   
+   <% if(flash.error && flash.error.length > 0 )
+    { %>
+        new Noty({
+            theme :'relax',
+            text: '<%= flash.error %>!!!',
+            type : 'error',
+            layout : 'topRight',
+            timeout : 1500
+            }).show();
+   <% } %>
+</script>

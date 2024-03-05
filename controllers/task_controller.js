@@ -7,7 +7,7 @@ module.exports.create_task = async function(req , res){
         // if(req.xhr){return res.status(200).json({
         //     data:added 
         // });}
-
+     req.flash('success' , 'Post Uploaded');
      return res.redirect('back');   
 }
 
@@ -34,6 +34,7 @@ module.exports.delete_task = async function(req,res)
     // {
     //     tasks.splice(index_to_delete, 1);
     // }
+    req.flash('success' , 'Post Deleted');
     }
     return res.redirect('/');
     

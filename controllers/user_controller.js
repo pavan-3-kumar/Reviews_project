@@ -53,7 +53,11 @@ module.exports.signin = function(req, res){
     {
        return  res.redirect('/users/profile');
     }
-    return  res.render('user_signin',{title:"TODO_LIST-signin"});
+    // console.log("addd");
+
+    // req.flash('error' ,'Invalid UsernamePassword');
+    
+    return  res.render('user_signin',{title:"TODO_LIST-signin",check:null});
 }
 
 // get the signup data
@@ -61,6 +65,7 @@ module.exports.create=async function(req , res)
 {
     if(req.body.password != req.body.conf_password)
     {
+            req.flash('error','Re-enterd password doesnot matched');
         return res.redirect('back');
     }
     // finding whether a user exists or not by giving a email
@@ -114,8 +119,8 @@ module.exports.destroysession = async function(req , res)
     // this is function in a passport
     req.logout(function(err) {
         if (err) { return next(err); }
-        
+        req.flash('success' ,'Logged Out');
     return res.redirect('/');
  });
- req.flash('success' ,'Logged Out');
+ 
 }

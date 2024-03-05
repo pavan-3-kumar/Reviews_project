@@ -13,7 +13,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
 </head>
     <body>
-        
+        <!-- <% if(flash.success && flash.success.length > 0 ) { %>
+            <h5>
+                <%= flash.success %>
+            </h5>
+         <% } %> -->
     <div id="home-container">
         <section id="first">
         <!-- <script>console.log(locals.user);</script> -->
@@ -111,17 +115,30 @@
    
   </div>
             <script>
-                console.log("hello");
-                if(flash.success && flash.success.length > 0 )
-                {
+                
+                // console.log("hello");
+                // after keeping <%%> this only we are getting notifications dont no why
+                <% if(flash.success && flash.success.length > 0 )
+                { %>
                     new Noty({
                         theme :'relax',
-                        text: 'Some notification text',
+                        text: '<%= flash.success %>!!!',
                         type : 'success',
                         layout : 'topRight',
                         timeout : 1500
                         }).show();
-                }
+               <% } %>
+               
+               <% if(flash.error && flash.error.length > 0 )
+                { %>
+                    new Noty({
+                        theme :'relax',
+                        text: '<%= flash.error %>!!!',
+                        type : 'error',
+                        layout : 'topRight',
+                        timeout : 1500
+                        }).show();
+               <% } %>
             </script>
     </body>
     <!-- to decrease page refresh -->

@@ -1,18 +1,29 @@
+// this is a middle ware which is called when the user is trying to log in
+
+
 const passport = require('passport');
 const User = require('../models/user');
 const LocalStrategy = require('passport-local').Strategy;
 
 passport.use( new LocalStrategy({
-      usernameField : 'email'  
-   },
-  async function(email , password , done)
+      usernameField : 'email',  
+      passReqToCallback : true // this allows to add a 'req' to the below function as we reqiure this for the notifications
+   
+    },
+  async function(req ,  email , password , done)
    { 
+    // console.log("authenticated");
      const user = await User.findOne({email:email});
          if(!user || user.password != password)
          {
-            console.log("password is incorrect");
+          // console.log(req.body);
+          
+          // window.alert("Invalid Username/Password");
+          req.flash('error' , 'Invalid Username/Password');
+            // console.log("password is incorrect");  
         return done(null , false); 
         }
+        
         return done(null , user);
    }
 ));

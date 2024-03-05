@@ -12,8 +12,10 @@ module.exports.create_comment = async function(req , res){
     //    console.log(post);
         post.comments.push(comment);
         post.save();
-        res.redirect('/');
-    }           
+        req.flash('success' , 'Comment Uploaded');
+        
+    }          
+    return res.redirect('back'); 
 }
 
 module.exports.delete_comment = async function(req , res){
@@ -29,6 +31,7 @@ module.exports.delete_comment = async function(req , res){
         // if the document is not present in the database it wont give the error
         await Post.updateOne({_id : post_id},{$pull:{comments:comment_id}})
         // this pull method remove all the comments with the given id
+        req.flash('success' , 'Comment Deleted');
     }
-    res.redirect('back');
+   return  res.redirect('back');
 }
