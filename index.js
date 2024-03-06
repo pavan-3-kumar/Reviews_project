@@ -1,5 +1,6 @@
 const express = require('express');
 const port = 4000;
+const app = express();
 const path = require('path');
 
 const cookieParser = require('cookie-parser');
@@ -12,17 +13,20 @@ const passport= require('passport');
 const passportLocal = require('./assets/passport-local-strategy');
 const MongoStore = require('connect-mongo'); // to store session cookie in mongodb permenantly until sign out
 const Task = require('./models/task_data');
-const app = express();
+
 const flash = require('connect-flash');
 const customMware= require('./assets/middleware');
 
 
-app.set('view engine' , 'ejs');
-app.set('views' , path.join(__dirname , 'views'));
 app.use(express.urlencoded());// middle_ware 
 app.use(cookieParser());
-app.use(express.static('middle_static'));// to use static files under middle_static folder 
+app.use(express.static('./middle_static'));// to use static files under middle_static folder 
 
+
+
+
+app.set('view engine' , 'ejs');
+app.set('views' , path.join(__dirname , 'views'));
 
 app.use(session({
     name: 'SOCIAL_CONNECT',
